@@ -13,6 +13,7 @@
                 <p>Published on: {{ post.published_date|date:"D M Y"}}</p>
             </div>
             <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.approve_comments.count }}</a>
+            <hr>
         </div>
     {% endfor %}
 </div>
