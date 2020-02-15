@@ -14,6 +14,8 @@ from django.views.generic import (TemplateView,ListView,
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
+from django.db.models import Q
+
 
 class AboutView(TemplateView):
     template_name = 'about.html'
@@ -21,14 +23,22 @@ class AboutView(TemplateView):
 
 class MyProjectView(TemplateView):
     template_name = 'myprojects.html'
-    
+
 
 class PostListView(ListView):
     model = Post
     paginate_by = 10
 
+
+
     def get_queryset(self):
-        return Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
+        query = self.request.GET.get("q")
+        if query:
+            query_list = Post.objects.filter(Q(title__icontains=query) | Q(text__icontains=query)).distinct()
+            return query_list.filter(published_date__lte=timezone.now()).order_by('-published_date')
+        else:
+            return Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
+
 
 class PostDetailView(DetailView):
     model = Post
