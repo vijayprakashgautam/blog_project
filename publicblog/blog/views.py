@@ -18,6 +18,11 @@ from django.core.paginator import Paginator
 class AboutView(TemplateView):
     template_name = 'about.html'
 
+
+class MyProjectView(TemplateView):
+    template_name = 'myprojects.html'
+    
+
 class PostListView(ListView):
     model = Post
     paginate_by = 10
