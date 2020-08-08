@@ -2,23 +2,23 @@
 
 {% block content %}
 <div class="centerstage">
-  <form action="" method="GET" class="mt-3 mb-3">
-  <div class="main">
+
+
+  <form class="mt-3 mb-3" action="" method="GET">
     <div class="input-group">
-      <input type="text" class="form-control" placeholder="Search Posts" name="q">
-        <div class="input-group-append">
-          <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
-        </div>
+      <input type="text" class="form-control" placeholder="Search this blog" name="q">
+      <div class="input-group-append">
+        <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
+      </div>
     </div>
-  </div>
-</form>
+  </form>
 
 
     <!-- <form action="" method="GET" class="mt-3 mb-3">
-      <input type="text" name="q" placeholder="Search Posts" class="active-pink-4">
+      <input type="text" name="q" placeholder="Search Posts" >
       <input type="submit" value="Search" class="btn btn-success">
     </form> -->
-
+{% if post_list %}
     {% for post in post_list %}
         <div class="post">
 
@@ -30,8 +30,22 @@
             <hr>
         </div>
     {% endfor %}
+{% else %}
+<div class="alert alert-danger" role="alert">
+<h4 class="alert-heading">Sorry !!</h4>
+<p>The search that you are looking for does not match with any post. Please try again or go to the home page.</p>
+<hr>
+<strong class="mb-0"><a href="/">Go to the home page.</a></strong>
+</div>
+  <h2>Here are some posts you may like: </h2>
+
+  
+{% endif %}
 </div>
 
+
+<!-- ............................................................................................................................ -->
+<!-- ............................................................................................................................. -->
 
 {% if is_paginated %}
     <nav aria-label="Page navigation example">
